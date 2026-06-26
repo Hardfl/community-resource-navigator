@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Community Resource Navigator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-50: #EAF3DE; --green-100: #C0DD97; --green-200: #97C459;
+    --green-600: #3B6D11; --green-800: #27500A; --green-900: #173404;
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-200: #5DCAA5;
+    --teal-600: #0F6E56; --teal-800: #085041; --teal-900: #04342C;
+    --amber-50: #FAEEDA; --amber-100: #FAC775; --amber-600: #854F0B;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-600: #5F5E5A;
+    --gray-800: #444441; --gray-900: #2C2C2A;
+    --coral-50: #FAECE7; --coral-100: #F5C4B3; --coral-600: #993C1D; --coral-800: #712B13;
+    --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-600: #185FA5; --blue-800: #0C447C;
+    --surface: #fff; --surface-1: #F7F7F5; --border: rgba(0,0,0,0.1);
+    --text: #1a1a18; --text-muted: #5F5E5A; --radius: 8px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--surface-1);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; font-weight: 500; color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: var(--green-600);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo-icon svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+
+  nav { display: flex; gap: 4px; }
+
+  .nav-tab {
+    padding: 6px 14px; border-radius: var(--radius); font-size: 13px;
+    color: var(--text-muted); cursor: pointer; border: none; background: none;
+    transition: all 0.15s;
+  }
+
+  .nav-tab:hover { background: var(--surface-1); color: var(--text); }
+  .nav-tab.active { background: var(--green-50); color: var(--green-800); font-weight: 500; }
+
+  .main { flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 2rem; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Search page */
+  .search-hero {
+    text-align: center; padding: 3rem 0 2rem;
+  }
+
+  .search-hero h1 { font-size: 26px; font-weight: 500; margin-bottom: 8px; }
+  .search-hero p { color: var(--text-muted); font-size: 15px; margin-bottom: 2rem; }
+
+  .search-box {
+    display: flex; gap: 10px; max-width: 640px; margin: 0 auto;
+  }
+
+  .search-box input {
+    flex: 1; padding: 10px 16px; border: 0.5px solid var(--border);
+    border-radius: var(--radius); font-size: 14px; background: var(--surface);
+    outline: none; transition: border-color 0.15s;
+  }
+
+  .search-box input:focus { border-color: var(--green-200); }
+
+  .btn-primary {
+    padding: 10px 20px; background: var(--green-600); color: #fff;
+    border: none; border-radius: var(--radius); font-size: 14px;
+    cursor: pointer; font-weight: 500; white-space: nowrap;
+    transition: background 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--green-800); }
+  .btn-primary:disabled { background: var(--gray-100); color: var(--gray-600); cursor: not-allowed; }
+
+  .filter-row {
+    display: flex; gap: 8px; max-width: 640px; margin: 1rem auto 0; flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .filter-chip {
+    padding: 5px 12px; border-radius: 20px; font-size: 12px;
+    border: 0.5px solid var(--border); background: var(--surface);
+    cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+  }
+
+  .filter-chip:hover { border-color: var(--green-200); color: var(--green-800); }
+  .filter-chip.active { background: var(--green-50); border-color: var(--green-200); color: var(--green-800); font-weight: 500; }
+
+  .results-area { margin-top: 2rem; }
+
+  .ai-response {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+    border-left: 3px solid var(--green-200);
+  }
+
+  .ai-response-label {
+    font-size: 11px; font-weight: 500; color: var(--green-600);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .ai-response-label::before {
+    content: ''; display: block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--green-200);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+  }
+
+  .ai-response-text { font-size: 14px; line-height: 1.7; color: var(--text); }
+
+  .resource-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px;
+  }
+
+  .resource-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.25rem; cursor: pointer;
+    transition: border-color 0.15s, transform 0.1s;
+  }
+
+  .resource-card:hover { border-color: var(--green-200); transform: translateY(-1px); }
+
+  .card-tag {
+    display: inline-block; font-size: 11px; font-weight: 500;
+    padding: 3px 8px; border-radius: 4px; margin-bottom: 10px;
+  }
+
+  .tag-environment { background: var(--green-50); color: var(--green-800); }
+  .tag-housing { background: var(--teal-50); color: var(--teal-800); }
+  .tag-food { background: var(--amber-50); color: var(--amber-600); }
+  .tag-health { background: var(--blue-50); color: var(--blue-800); }
+  .tag-humanitarian { background: var(--coral-50); color: var(--coral-800); }
+
+  .card-org { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .card-service { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+
+  .card-meta {
+    display: flex; gap: 12px; font-size: 11px; color: var(--text-muted);
+    border-top: 0.5px solid var(--border); padding-top: 10px;
+  }
+
+  .card-meta span { display: flex; align-items: center; gap: 4px; }
+
+  .eligibility-badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 4px;
+    background: var(--green-50); color: var(--green-800);
+  }
+
+  /* Dashboard page */
+  .dash-header { margin-bottom: 1.5rem; }
+  .dash-header h2 { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+  .dash-header p { color: var(--text-muted); font-size: 13px; }
+
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+
+  .metric-card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 1rem; border: 0.5px solid var(--border);
+  }
+
+  .metric-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .metric-value { font-size: 24px; font-weight: 500; }
+  .metric-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .metric-delta { font-size: 11px; color: var(--green-600); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .panel {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+  }
+
+  .panel-title { font-size: 13px; font-weight: 500; margin-bottom: 1rem; }
+
+  .gap-bar-row { margin-bottom: 12px; }
+  .gap-bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+  .gap-bar-label span:first-child { color: var(--text); }
+  .gap-bar-label span:last-child { color: var(--text-muted); }
+  .gap-bar-track { height: 6px; background: var(--gray-50); border-radius: 4px; overflow: hidden; }
+  .gap-bar-fill { height: 100%; border-radius: 4px; background: var(--green-200); }
+  .gap-bar-fill.high { background: var(--coral-100); }
+
+  .need-list { list-style: none; }
+  .need-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 0.5px solid var(--border); font-size: 13px;
+  }
+  .need-item:last-child { border-bottom: none; }
+  .need-count {
+    font-size: 11px; font-weight: 500; padding: 2px 8px;
+    border-radius: 4px; background: var(--green-50); color: var(--green-800);
+  }
+  .need-count.gap { background: var(--coral-50); color: var(--coral-800); }
+
+  /* Data page */
+  .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1.5rem; }
+
+  .data-table-wrap { overflow-x: auto; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 12px; font-weight: 500; font-size: 11px;
+    color: var(--text-muted); border-bottom: 0.5px solid var(--border);
+    text-transform: uppercase; letter-spacing: 0.04em; }
+  td { padding: 10px 12px; border-bottom: 0.5px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface-1); }
+
+  .status-dot {
+    width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 6px;
+  }
+  .dot-active { background: var(--green-200); }
+  .dot-limited { background: var(--amber-100); }
+
+  /* Modal */
+  .modal-bg {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.35); z-index: 100;
+    align-items: center; justify-content: center;
+  }
+
+  .modal-bg.open { display: flex; }
+
+  .modal {
+    background: var(--surface); border-radius: 16px;
+    padding: 1.75rem; max-width: 520px; width: 90%;
+    max-height: 80vh; overflow-y: auto;
+  }
+
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+  .modal-header h3 { font-size: 16px; font-weight: 500; }
+  .close-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 18px; }
+
+  .modal-section { margin-bottom: 1rem; }
+  .modal-section-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+  .modal-section-value { font-size: 14px; line-height: 1.6; }
+
+  .ai-summary-box {
+    background: var(--green-50); border-radius: var(--radius);
+    padding: 1rem; margin-top: 1rem;
+    border: 0.5px solid var(--green-100);
+  }
+
+  .ai-summary-box .label { font-size: 11px; font-weight: 500; color: var(--green-800); margin-bottom: 6px; }
+  .ai-summary-box .text { font-size: 13px; color: var(--green-900); line-height: 1.6; }
+
+  .loading-dots { display: inline-flex; gap: 4px; }
+  .loading-dots span {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--green-200);
+    animation: bounce 1.2s infinite;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+  .empty-state {
+    text-align: center; padding: 4rem 2rem;
+    color: var(--text-muted); font-size: 14px;
+  }
+
+  .empty-state .icon { font-size: 32px; margin-bottom: 12px; opacity: 0.4; }
+
+  @media (max-width: 700px) {
+    .metric-grid { grid-template-columns: 1fr 1fr; }
+    .two-col, .data-grid { grid-template-columns: 1fr; }
+    .resource-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">
+    <div class="logo-icon">
+      <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4"/><path d="M8 2v2M8 12v2M2 8h2M12 8h2"/></svg>
+    </div>
+    Community Resource Navigator
+  </a>
+  <nav>
+    <button class="nav-tab active" onclick="switchPage('search', this)">Find resources</button>
+    <button class="nav-tab" onclick="switchPage('dashboard', this)">Impact dashboard</button>
+    <button class="nav-tab" onclick="switchPage('data', this)">Data & gaps</button>
+  </nav>
+</header>
+
+<div class="main">
+
+  <!-- SEARCH PAGE -->
+  <div id="page-search" class="page active">
+    <div class="search-hero">
+      <h1>Find community resources</h1>
+      <p>Describe what someone needs — Claude will find and explain the best options.</p>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="e.g. family needs emergency housing tonight" onkeydown="if(event.key==='Enter') doSearch()" />
+        <button class="btn-primary" onclick="doSearch()" id="search-btn">Search</button>
+      </div>
+      <div class="filter-row">
+        <button class="filter-chip" onclick="toggleFilter(this, 'housing')">🏠 Housing</button>
+        <button class="filter-chip" onclick="toggleFilter(this, 'food')">🥗 Food</button>
+        <button class="filter-chip" onclick="toggleFilter(this, 'environment')">🌱 Environment</button>
+        <button class="filter-chip" onclick="toggleFilter(this, 'health')">🏥 Health</button>
+        <button class="filter-chip" onclick="toggleFilter(this, 'humanitarian')">🤝 Humanitarian</button>
+      </div>
+    </div>
+
+    <div id="results-area" class="results-area" style="display:none">
+      <div class="ai-response" id="ai-response">
+        <div class="ai-response-label">Claude's recommendation</div>
+        <div class="ai-response-text" id="ai-text"></div>
+      </div>
+      <div class="resource-grid" id="resource-grid"></div>
+    </div>
+
+    <div id="empty-state" class="empty-state" style="display:none">
+      <div class="icon">🔍</div>
+      <p>No matching resources found. Try broadening your search or removing filters.</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PAGE -->
+  <div id="page-dashboard" class="page">
+    <div class="dash-header">
+      <h2>Impact dashboard</h2>
+      <p>Search activity, resource utilization, and client need patterns — last 30 days</p>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-label">Total searches</div>
+        <div class="metric-value">1,284</div>
+        <div class="metric-delta">↑ 14% vs last month</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Resources matched</div>
+        <div class="metric-value">847</div>
+        <div class="metric-sub">66% match rate</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Active organizations</div>
+        <div class="metric-value">42</div>
+        <div class="metric-sub">3 added this month</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Unmet needs flagged</div>
+        <div class="metric-value" style="color: var(--coral-800)">437</div>
+        <div class="metric-sub">No resource found</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">Top client needs this month</div>
+        <ul class="need-list">
+          <li class="need-item"><span>Emergency housing</span><span class="need-count gap">214 searches · gap</span></li>
+          <li class="need-item"><span>Food assistance</span><span class="need-count">198 searches</span></li>
+          <li class="need-item"><span>Mental health support</span><span class="need-count gap">176 searches · gap</span></li>
+          <li class="need-item"><span>Job training</span><span class="need-count">141 searches</span></li>
+          <li class="need-item"><span>Utility assistance</span><span class="need-count gap">98 searches · gap</span></li>
+          <li class="need-item"><span>Childcare referrals</span><span class="need-count">87 searches</span></li>
+          <li class="need-item"><span>Legal aid</span><span class="need-count">72 searches</span></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Resource coverage by category</div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Food security</span><span>91% covered</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:91%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Environmental services</span><span>78% covered</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:78%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Health &amp; wellness</span><span>65% covered</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:65%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Emergency housing</span><span style="color:var(--coral-800)">32% covered</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill high" style="width:32%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Mental health</span><span style="color:var(--coral-800)">28% covered</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill high" style="width:28%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Legal services</span><span>44% covered</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:44%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA PAGE -->
+  <div id="page-data" class="page">
+    <div class="dash-header">
+      <h2>Data &amp; resource gaps</h2>
+      <p>Cleaned service data, eligibility fields, and AI-identified coverage gaps</p>
+    </div>
+
+    <div class="data-grid">
+      <div class="panel">
+        <div class="panel-title">Data quality summary</div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Organization name</span><span>100%</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Service description</span><span>96%</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:96%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Eligibility criteria</span><span>74%</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:74%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Capacity / slots</span><span style="color:var(--coral-800)">41%</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill high" style="width:41%"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="gap-bar-label"><span>Phone / contact</span><span>88%</span></div>
+          <div class="gap-bar-track"><div class="gap-bar-fill" style="width:88%"></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Gap analysis — AI findings</div>
+        <ul class="need-list">
+          <li class="need-item" style="flex-direction:column;align-items:flex-start;gap:4px">
+            <span style="font-weight:500;font-size:13px">No overnight shelter for single men</span>
+            <span style="font-size:12px;color:var(--text-muted)">214 searches, 0 matching resources</span>
+          </li>
+          <li class="need-item" style="flex-direction:column;align-items:flex-start;gap:4px">
+            <span style="font-weight:500;font-size:13px">Bilingual (Spanish) mental health</span>
+            <span style="font-size:12px;color:var(--text-muted)">89 searches, 1 resource at capacity</span>
+          </li>
+          <li class="need-item" style="flex-direction:column;align-items:flex-start;gap:4px">
+            <span style="font-weight:500;font-size:13px">After-hours utility shutoff help</span>
+            <span style="font-size:12px;color:var(--text-muted)">63 searches, no weekend coverage</span>
+          </li>
+          <li class="need-item" style="flex-direction:column;align-items:flex-start;gap:4px">
+            <span style="font-weight:500;font-size:13px">Pet-friendly emergency housing</span>
+            <span style="font-size:12px;color:var(--text-muted)">47 searches, 0 matching resources</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Organization database</div>
+      <div class="data-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Organization</th>
+              <th>Category</th>
+              <th>Services</th>
+              <th>Eligibility</th>
+              <th>Capacity</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:500">GreenRoots Alliance</td>
+              <td><span class="card-tag tag-environment">Environment</span></td>
+              <td>Urban farming training, composting, green jobs</td>
+              <td>18+, county residents</td>
+              <td>Open</td>
+              <td><span class="status-dot dot-active"></span>Active</td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Bridge House Shelter</td>
+              <td><span class="card-tag tag-housing">Housing</span></td>
+              <td>Emergency shelter, transitional housing, case mgmt</td>
+              <td>Women &amp; families</td>
+              <td>14 beds</td>
+              <td><span class="status-dot dot-limited"></span>Limited</td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Harvest Table</td>
+              <td><span class="card-tag tag-food">Food</span></td>
+              <td>Weekly food pantry, hot meals Mon–Fri</td>
+              <td>No restrictions</td>
+              <td>Unlimited</td>
+              <td><span class="status-dot dot-active"></span>Active</td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Community Health Van</td>
+              <td><span class="card-tag tag-health">Health</span></td>
+              <td>Mobile clinic, dental, vision, vaccines</td>
+              <td>Uninsured / low income</td>
+              <td>30/day</td>
+              <td><span class="status-dot dot-active"></span>Active</td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Refugee Welcome Center</td>
+              <td><span class="card-tag tag-humanitarian">Humanitarian</span></td>
+              <td>Resettlement, ESL, job placement, legal aid</td>
+              <td>Refugees &amp; asylees</td>
+              <td>Open</td>
+              <td><span class="status-dot dot-active"></span>Active</td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Clean Air Coalition</td>
+              <td><span class="card-tag tag-environment">Environment</span></td>
+              <td>Air quality monitoring, advocacy, education</td>
+              <td>Open</td>
+              <td>Open</td>
+              <td><span class="status-dot dot-active"></span>Active</td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Second Chance Housing</td>
+              <td><span class="card-tag tag-housing">Housing</span></td>
+              <td>Re-entry housing, ID recovery, support groups</td>
+              <td>Post-incarceration</td>
+              <td>8 units</td>
+              <td><span class="status-dot dot-limited"></span>Limited</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Resource detail modal -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modal-title"></h3>
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const RESOURCES = [
+  {
+    id: 1, org: "GreenRoots Alliance", category: "environment",
+    service: "Urban farming training, composting education, and green job placement for community members.",
+    eligibility: "18+, county residents", address: "440 Elm Street", phone: "555-0141",
+    hours: "Mon–Fri 9am–5pm", capacity: "Open enrollment",
+    tags: ["environment", "jobs", "training"]
+  },
+  {
+    id: 2, org: "Bridge House Shelter", category: "housing",
+    service: "Emergency overnight shelter and transitional housing with case management for women and families.",
+    eligibility: "Women & families only", address: "82 Pine Avenue", phone: "555-0188",
+    hours: "24/7", capacity: "14 beds (call ahead)",
+    tags: ["housing", "shelter", "emergency"]
+  },
+  {
+    id: 3, org: "Harvest Table", category: "food",
+    service: "Weekly food pantry (Thursdays) and hot meals served Monday through Friday for all community members.",
+    eligibility: "No restrictions", address: "10 Church Lane", phone: "555-0109",
+    hours: "Mon–Fri 11am–1pm, Thu pantry 4–7pm", capacity: "No limit",
+    tags: ["food", "meals", "pantry"]
+  },
+  {
+    id: 4, org: "Community Health Van", category: "health",
+    service: "Mobile medical clinic offering primary care, dental, vision, and vaccine services for uninsured residents.",
+    eligibility: "Uninsured or low income", address: "Rotating — call for schedule", phone: "555-0167",
+    hours: "Tue & Thu 8am–4pm", capacity: "30 patients/day",
+    tags: ["health", "medical", "dental"]
+  },
+  {
+    id: 5, org: "Refugee Welcome Center", category: "humanitarian",
+    service: "Full resettlement support including ESL classes, job placement assistance, and immigration legal aid.",
+    eligibility: "Refugees & asylees", address: "300 Harbor Blvd", phone: "555-0122",
+    hours: "Mon–Sat 8am–6pm", capacity: "Open",
+    tags: ["humanitarian", "immigration", "legal", "jobs"]
+  },
+  {
+    id: 6, org: "Clean Air Coalition", category: "environment",
+    service: "Community air quality monitoring, pollution advocacy, and environmental health education programs.",
+    eligibility: "Open to all", address: "55 Greenway Dr", phone: "555-0133",
+    hours: "Mon–Fri 10am–4pm", capacity: "Open",
+    tags: ["environment", "health", "advocacy"]
+  },
+  {
+    id: 7, org: "Second Chance Housing", category: "housing",
+    service: "Supportive re-entry housing for people post-incarceration, with ID recovery and peer support groups.",
+    eligibility: "Post-incarceration", address: "200 Oak Street", phone: "555-0155",
+    hours: "Mon–Fri 9am–5pm", capacity: "8 units",
+    tags: ["housing", "reentry", "support"]
+  },
+  {
+    id: 8, org: "Sunrise Food Pantry", category: "food",
+    service: "Drive-through food distribution every Saturday morning. Fresh produce when available.",
+    eligibility: "County residents", address: "12 Sunrise Ave", phone: "555-0177",
+    hours: "Sat 8am–noon", capacity: "250 families/week",
+    tags: ["food", "pantry"]
+  }
+];
+
+let activeFilters = new Set();
+let currentResults = [];
+
+function toggleFilter(el, cat) {
+  if (activeFilters.has(cat)) {
+    activeFilters.delete(cat);
+    el.classList.remove('active');
+  } else {
+    activeFilters.add(cat);
+    el.classList.add('active');
+  }
+}
+
+function switchPage(page, tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  tab.classList.add('active');
+}
+
+async function doSearch() {
+  const query = document.getElementById('search-input').value.trim();
+  if (!query) return;
+
+  const btn = document.getElementById('search-btn');
+  btn.disabled = true;
+  btn.textContent = 'Searching…';
+
+  document.getElementById('results-area').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('ai-text').innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+  document.getElementById('results-area').style.display = 'block';
+  document.getElementById('resource-grid').innerHTML = '';
+
+  const filtered = RESOURCES.filter(r =>
+    (activeFilters.size === 0 || activeFilters.has(r.category)) &&
+    (r.org.toLowerCase().includes(query.toLowerCase()) ||
+     r.service.toLowerCase().includes(query.toLowerCase()) ||
+     r.tags.some(t => query.toLowerCase().includes(t)) ||
+     r.category.toLowerCase().includes(query.toLowerCase()) ||
+     query.toLowerCase().includes(r.category))
+  );
+
+  currentResults = filtered.length > 0 ? filtered : RESOURCES.filter(r =>
+    activeFilters.size === 0 || activeFilters.has(r.category)
+  ).slice(0, 4);
+
+  const resourceSummary = currentResults.map(r =>
+    `${r.org}: ${r.service} (Eligibility: ${r.eligibility})`
+  ).join('\n');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: `You are a compassionate resource navigator assistant for a nonprofit serving people in need. 
+Given a person's situation and a list of matching services, write a warm, clear 2-3 sentence recommendation 
+that helps a caseworker understand which resources best fit and why. Be specific about eligibility or timing 
+if relevant. Never make up organizations not in the list. Keep it concise and human.`,
+        messages: [{
+          role: 'user',
+          content: `A client or caseworker searched for: "${query}"\n\nMatching resources found:\n${resourceSummary}\n\nWrite a brief, helpful recommendation.`
+        }]
+      })
+    });
+
+    const data = await res.json();
+    const text = data.content?.map(b => b.text || '').join('') || 'Resources found below. Review each one for eligibility.';
+    document.getElementById('ai-text').textContent = text;
+  } catch (e) {
+    document.getElementById('ai-text').textContent = `Found ${currentResults.length} matching resources for "${query}". Review the options below for eligibility and availability.`;
+  }
+
+  if (currentResults.length === 0) {
+    document.getElementById('results-area').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'block';
+  } else {
+    currentResults.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.onclick = () => openModal(r);
+      card.innerHTML = `
+        <span class="card-tag tag-${r.category}">${r.category.charAt(0).toUpperCase() + r.category.slice(1)}</span>
+        <div class="card-org">${r.org}</div>
+        <div class="card-service">${r.service}</div>
+        <div class="card-meta">
+          <span>📍 ${r.address}</span>
+          <span class="eligibility-badge">${r.eligibility}</span>
+        </div>
+      `;
+      document.getElementById('resource-grid').appendChild(card);
+    });
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Search';
+}
+
+async function openModal(resource) {
+  document.getElementById('modal-title').textContent = resource.org;
+  document.getElementById('modal-bg').classList.add('open');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-label">Services offered</div>
+      <div class="modal-section-value">${resource.service}</div>
+    </div>
+    <div class="modal-section" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div class="modal-section-label">Eligibility</div>
+        <div class="modal-section-value">${resource.eligibility}</div>
+      </div>
+      <div>
+        <div class="modal-section-label">Capacity</div>
+        <div class="modal-section-value">${resource.capacity}</div>
+      </div>
+    </div>
+    <div class="modal-section" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div class="modal-section-label">Hours</div>
+        <div class="modal-section-value">${resource.hours}</div>
+      </div>
+      <div>
+        <div class="modal-section-label">Phone</div>
+        <div class="modal-section-value">${resource.phone}</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">Address</div>
+      <div class="modal-section-value">${resource.address}</div>
+    </div>
+    <div class="ai-summary-box" id="modal-ai-box">
+      <div class="label">Claude's intake notes</div>
+      <div class="text" id="modal-ai-text"><div class="loading-dots"><span></span><span></span><span></span></div></div>
+    </div>
+  `;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: 'You are a nonprofit caseworker assistant. Write 2 brief, practical sentences a caseworker should know before referring someone to this organization. Include any important eligibility notes, call-ahead requirements, or access tips. Be direct and practical.',
+        messages: [{
+          role: 'user',
+          content: `Org: ${resource.org}\nService: ${resource.service}\nEligibility: ${resource.eligibility}\nCapacity: ${resource.capacity}\nHours: ${resource.hours}`
+        }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.map(b => b.text || '').join('') || 'Call ahead to confirm availability before referring a client.';
+    document.getElementById('modal-ai-text').textContent = text;
+  } catch (e) {
+    document.getElementById('modal-ai-text').textContent = 'Confirm eligibility and availability by calling ahead before referring a client.';
+  }
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-bg')) {
+    document.getElementById('modal-bg').classList.remove('open');
+  }
+}
+</script>
+</body>
+</html>

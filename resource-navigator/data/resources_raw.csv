@@ -1,0 +1,13 @@
+org_name,category,service_description,eligibility,address,phone,hours,capacity,lat,lng,languages,last_verified
+GreenRoots Alliance,environment,"Urban farming training, composting education, green job placement",18+ county residents,440 Elm Street,555-0141,Mon-Fri 9am-5pm,Open enrollment,40.7128,-74.0060,English Spanish,2024-11-01
+Bridge House Shelter,Housing,"Emergency overnight shelter, transitional housing, case management",Women & families only,82 Pine Avenue,(555) 0188,24/7,14 beds,40.7138,-74.0070,English,2024-10-15
+Harvest Table,food,"Weekly food pantry Thursdays, hot meals Monday through Friday",No restrictions,10 Church Lane,555-0109,"Mon-Fri 11am-1pm, Thu pantry 4-7pm",Unlimited,40.7118,-74.0050,English Spanish French,2024-12-01
+Community Health Van,health,"Mobile clinic, dental, vision, vaccines for uninsured",Uninsured or low income,Rotating - call for schedule,555-0167,Tue & Thu 8am-4pm,30 patients/day,,,English Spanish,2024-11-20
+Refugee Welcome Center,Humanitarian,"Resettlement support, ESL classes, job placement, immigration legal aid",Refugees & asylees,300 Harbor Blvd,555-0122,Mon-Sat 8am-6pm,Open,40.7148,-74.0080,English Spanish Arabic Somali,2024-12-01
+Clean Air Coalition,ENVIRONMENT,Community air quality monitoring and pollution advocacy,Open to all,55 Greenway Dr,555-0133,Mon-Fri 10am-4pm,Open,40.7158,-74.0090,English,2024-09-01
+Second Chance Housing,housing,"Re-entry housing, ID recovery, peer support groups",Post-incarceration,200 Oak Street,555-0155,Mon-Fri 9am-5pm,8 units,40.7168,-74.0100,English,2024-11-10
+Sunrise Food Pantry,Food,Drive-through food distribution every Saturday morning. Fresh produce when available.,County residents,12 Sunrise Ave,555-0177,Sat 8am-noon,250 families/week,40.7178,-74.0110,English Spanish,2024-12-01
+,environment,Some environmental program,adults,,555-9999,Unknown,,,,English,
+River Cleanup Project,environment,"Monthly river cleanups, water quality testing, volunteer coordination",Volunteers 16+,River Park Entrance,555-0199,Saturdays 9am-1pm (monthly),50 volunteers,40.7188,-74.0120,English,2024-10-01
+Urban Tree Canopy,Environment,"Free tree planting, urban greening education for low-income neighborhoods",Low-income areas,City Hall Annex,5550211,Mon-Wed 9am-3pm,Open,40.7198,-74.0130,English Spanish,2024-11-15
+Hope Housing Coalition,housing,"Rapid rehousing assistance, rental deposits, landlord mediation",Adults facing eviction,525 Main Street,555-0222,Mon-Fri 8am-4pm,20 cases/month,40.7208,-74.0140,English,2024-11-01

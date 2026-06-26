@@ -1,0 +1,31 @@
+search_id,timestamp,query,category_filter,results_count,matched,session_id
+1,2024-12-01 09:12:03,family needs emergency shelter tonight,housing,2,true,sess_001
+2,2024-12-01 09:34:22,food pantry near me,food,3,true,sess_002
+3,2024-12-01 10:01:45,mental health counseling spanish,health,0,false,sess_003
+4,2024-12-01 10:22:11,homeless single man tonight,housing,0,false,sess_004
+5,2024-12-01 11:05:33,job training green energy,environment,2,true,sess_005
+6,2024-12-01 11:30:10,refugee resettlement help,humanitarian,1,true,sess_006
+7,2024-12-01 12:00:00,utility shutoff help weekend,housing,0,false,sess_007
+8,2024-12-01 13:15:44,dental care uninsured,health,1,true,sess_008
+9,2024-12-01 14:22:01,food assistance family,food,3,true,sess_009
+10,2024-12-01 15:01:23,emergency housing pet friendly,housing,0,false,sess_010
+11,2024-12-02 08:44:55,composting volunteer,environment,1,true,sess_011
+12,2024-12-02 09:11:30,asylum seeker legal help,humanitarian,1,true,sess_012
+13,2024-12-02 09:55:12,single man shelter tonight,housing,0,false,sess_013
+14,2024-12-02 10:30:00,mental health bilingual,health,0,false,sess_014
+15,2024-12-02 11:22:45,food pantry thursday,food,2,true,sess_015
+16,2024-12-02 12:05:00,re-entry housing felony,housing,1,true,sess_016
+17,2024-12-02 13:14:11,air quality testing my neighborhood,environment,1,true,sess_017
+18,2024-12-02 14:00:33,eviction help rental assistance,housing,1,true,sess_018
+19,2024-12-02 15:22:00,mobile clinic this week,health,1,true,sess_019
+20,2024-12-02 16:01:44,woman shelter tonight,housing,1,true,sess_020
+21,2024-12-03 08:30:00,esl classes for immigrants,humanitarian,1,true,sess_021
+22,2024-12-03 09:00:22,single adult male emergency,housing,0,false,sess_022
+23,2024-12-03 09:45:11,mental health support spanish,health,0,false,sess_023
+24,2024-12-03 10:30:55,food bank open saturday,food,1,true,sess_024
+25,2024-12-03 11:11:00,urban farming training,environment,1,true,sess_025
+26,2024-12-03 12:00:00,overnight shelter no restrictions,housing,0,false,sess_026
+27,2024-12-03 13:22:33,vaccine free clinic,health,1,true,sess_027
+28,2024-12-03 14:05:00,legal help refugee,humanitarian,1,true,sess_028
+29,2024-12-03 15:30:44,utility bill help gas shutoff,housing,0,false,sess_029
+30,2024-12-03 16:00:00,green jobs training,environment,2,true,sess_030
