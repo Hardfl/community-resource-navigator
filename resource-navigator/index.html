@@ -357,22 +357,22 @@
     <div class="metric-grid">
       <div class="metric-card">
         <div class="metric-label">Total searches</div>
-        <div class="metric-value">1,284</div>
-        <div class="metric-delta">↑ 14% vs last month</div>
+        <div class="metric-value">312</div>
+        <div class="metric-delta">↑ 22% vs last month</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Resources matched</div>
-        <div class="metric-value">847</div>
-        <div class="metric-sub">66% match rate</div>
+        <div class="metric-value">198</div>
+        <div class="metric-sub">63% match rate</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Active organizations</div>
-        <div class="metric-value">42</div>
-        <div class="metric-sub">3 added this month</div>
+        <div class="metric-value">13</div>
+        <div class="metric-sub">Middlesex County, NJ</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">Unmet needs flagged</div>
-        <div class="metric-value" style="color: var(--coral-800)">437</div>
+        <div class="metric-value" style="color: var(--coral-800)">114</div>
         <div class="metric-sub">No resource found</div>
       </div>
     </div>
@@ -490,64 +490,7 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td style="font-weight:500">GreenRoots Alliance</td>
-              <td><span class="card-tag tag-environment">Environment</span></td>
-              <td>Urban farming training, composting, green jobs</td>
-              <td>18+, county residents</td>
-              <td>Open</td>
-              <td><span class="status-dot dot-active"></span>Active</td>
-            </tr>
-            <tr>
-              <td style="font-weight:500">Bridge House Shelter</td>
-              <td><span class="card-tag tag-housing">Housing</span></td>
-              <td>Emergency shelter, transitional housing, case mgmt</td>
-              <td>Women &amp; families</td>
-              <td>14 beds</td>
-              <td><span class="status-dot dot-limited"></span>Limited</td>
-            </tr>
-            <tr>
-              <td style="font-weight:500">Harvest Table</td>
-              <td><span class="card-tag tag-food">Food</span></td>
-              <td>Weekly food pantry, hot meals Mon–Fri</td>
-              <td>No restrictions</td>
-              <td>Unlimited</td>
-              <td><span class="status-dot dot-active"></span>Active</td>
-            </tr>
-            <tr>
-              <td style="font-weight:500">Community Health Van</td>
-              <td><span class="card-tag tag-health">Health</span></td>
-              <td>Mobile clinic, dental, vision, vaccines</td>
-              <td>Uninsured / low income</td>
-              <td>30/day</td>
-              <td><span class="status-dot dot-active"></span>Active</td>
-            </tr>
-            <tr>
-              <td style="font-weight:500">Refugee Welcome Center</td>
-              <td><span class="card-tag tag-humanitarian">Humanitarian</span></td>
-              <td>Resettlement, ESL, job placement, legal aid</td>
-              <td>Refugees &amp; asylees</td>
-              <td>Open</td>
-              <td><span class="status-dot dot-active"></span>Active</td>
-            </tr>
-            <tr>
-              <td style="font-weight:500">Clean Air Coalition</td>
-              <td><span class="card-tag tag-environment">Environment</span></td>
-              <td>Air quality monitoring, advocacy, education</td>
-              <td>Open</td>
-              <td>Open</td>
-              <td><span class="status-dot dot-active"></span>Active</td>
-            </tr>
-            <tr>
-              <td style="font-weight:500">Second Chance Housing</td>
-              <td><span class="card-tag tag-housing">Housing</span></td>
-              <td>Re-entry housing, ID recovery, support groups</td>
-              <td>Post-incarceration</td>
-              <td>8 units</td>
-              <td><span class="status-dot dot-limited"></span>Limited</td>
-            </tr>
-          </tbody>
+          <tbody id="org-table-body"></tbody>
         </table>
       </div>
     </div>
@@ -828,6 +771,29 @@ function closeModal(e) {
     document.getElementById('modal-bg').classList.remove('open');
   }
 }
+
+// Populate org table from RESOURCES data
+function populateOrgTable() {
+  const tbody = document.getElementById('org-table-body');
+  if (!tbody) return;
+  const limitedCats = ['housing'];
+  tbody.innerHTML = RESOURCES.map(r => {
+    const limited = r.capacity && (r.capacity.toLowerCase().includes('bed') || r.capacity.toLowerCase().includes('unit') || r.capacity.toLowerCase().includes('appointment'));
+    const statusDot = limited ? 'dot-limited' : 'dot-active';
+    const statusLabel = limited ? 'Limited' : 'Active';
+    const desc = r.service.length > 80 ? r.service.slice(0, 80) + '…' : r.service;
+    const elig = r.eligibility.length > 40 ? r.eligibility.slice(0, 40) + '…' : r.eligibility;
+    return `<tr>
+      <td style="font-weight:500">${r.org}</td>
+      <td><span class="card-tag tag-${r.category}">${r.category.charAt(0).toUpperCase()+r.category.slice(1)}</span></td>
+      <td>${desc}</td>
+      <td>${elig}</td>
+      <td>${r.capacity}</td>
+      <td><span class="status-dot ${statusDot}"></span>${statusLabel}</td>
+    </tr>`;
+  }).join('');
+}
+populateOrgTable();
 </script>
 </body>
 </html>
