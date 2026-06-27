@@ -13,9 +13,9 @@ A Claude-powered tool that helps nonprofit caseworkers search, summarize, and re
 - **Impact dashboard** — tracks search volume, match rates, and unmet needs over time
 - **Gap analysis** — automatically surfaces categories where searches consistently return zero results, helping leadership prioritize new partnerships
   
-<img width="1492" height="690" alt="image" src="https://github.com/user-attachments/assets/8d6009fd-b619-4567-b8f3-fbc85a861014" />
-<img width="1136" height="563" alt="image" src="https://github.com/user-attachments/assets/22a6efac-61b2-4d2f-813a-feaf85bfc9e9" />
-<img width="1137" height="625" alt="image" src="https://github.com/user-attachments/assets/2340f3ea-838c-400c-801a-6ecab8bf0d1f" />
+<img width="1480" height="681" alt="image" src="https://github.com/user-attachments/assets/3124de98-58d0-4d70-8af6-666f36b8a241" />
+<img width="1126" height="548" alt="image" src="https://github.com/user-attachments/assets/4e842c5d-b958-4c4d-8f71-251227104aaa" />
+<img width="1127" height="641" alt="image" src="https://github.com/user-attachments/assets/d1f1595d-d5c3-4bf5-95ec-5d4a4e0c7fab" />
 
 ---
 
