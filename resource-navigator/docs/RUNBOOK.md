@@ -109,7 +109,7 @@ Bring these to your next team meeting. Each line represents real clients who did
 - How many searches found a match
 - Most common client needs
 
-
+<img width="1137" height="625" alt="image" src="https://github.com/user-attachments/assets/20d4ca9f-e539-411e-a275-99e46a77aae3" />
 
 **Data & gaps tab:**
 - Which fields are missing in your resource data
