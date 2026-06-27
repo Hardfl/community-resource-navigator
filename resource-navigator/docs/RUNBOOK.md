@@ -145,7 +145,7 @@ Try refreshing the page first. If it still doesn't work, let your data owner kno
 
 | Need | Contact |
 |---|---|
-| Add or update a resource | Your data owner (name here) |
-| Technical issue with the tool | Your IT contact (name here) |
+| Add or update a resource | Your data owner |
+| Technical issue with the tool | Your IT contact |
 | Question about a specific resource | Call the organization directly |
 | Request a new feature | Your data owner |
