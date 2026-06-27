@@ -4,6 +4,7 @@ A Claude-powered tool that helps nonprofit caseworkers search, summarize, and re
 
 *Resource data sourced from 211.org, findhelp.org, and direct organization websites for Middlesex County, NJ. In production, this would route through a backend to protect the API key and another thing to note is that search_logs.csv contains synthetic search data generated to demonstrate gap analysis functionality. In a real deployment, logs would be written by the application and would not contain any personally identifying information.
 
+
 ---
 
 ## What it does
