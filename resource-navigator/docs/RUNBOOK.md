@@ -101,6 +101,7 @@ Bring these to your next team meeting. Each line represents real clients who did
 ---
 
 ## What the dashboards show
+<img width="1492" height="690" alt="image" src="https://github.com/user-attachments/assets/2f05581e-be38-4e1b-b24a-e43694493e18" />
 
 **Impact dashboard tab:**
 - Total searches this month
