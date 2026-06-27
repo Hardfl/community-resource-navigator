@@ -1,6 +1,6 @@
 # Community Resource Navigator
 
-A Claude-powered tool that helps nonprofit caseworkers search, summarize, and recommend community resources for clients in need. Built for organizations working in housing, food security, environmental services, humanitarian aid, and public health.
+A Claude-powered tool that helps nonprofit caseworkers search, summarize, and recommend community resources for clients in need. Built for organizations working in housing, food security, environmental services, humanitarian aid, and public health located in central Jersey (open to expand the reach of this). 
 
 *Resource data sourced from 211.org, findhelp.org, and direct organization websites for Middlesex County, NJ. In production, this would route through a backend to protect the API key...
 
@@ -12,6 +12,10 @@ A Claude-powered tool that helps nonprofit caseworkers search, summarize, and re
 - **Intake notes** — clicking any resource card triggers a second Claude call with practical notes for the caseworker (eligibility flags, call-ahead tips)
 - **Impact dashboard** — tracks search volume, match rates, and unmet needs over time
 - **Gap analysis** — automatically surfaces categories where searches consistently return zero results, helping leadership prioritize new partnerships
+  
+<img width="1492" height="690" alt="image" src="https://github.com/user-attachments/assets/8d6009fd-b619-4567-b8f3-fbc85a861014" />
+<img width="1136" height="563" alt="image" src="https://github.com/user-attachments/assets/22a6efac-61b2-4d2f-813a-feaf85bfc9e9" />
+<img width="1137" height="625" alt="image" src="https://github.com/user-attachments/assets/2340f3ea-838c-400c-801a-6ecab8bf0d1f" />
 
 ---
 
