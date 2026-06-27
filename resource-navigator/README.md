@@ -16,6 +16,8 @@ A Claude-powered tool that helps nonprofit caseworkers search, summarize, and re
   
 <img width="1472" height="668" alt="image" src="https://github.com/user-attachments/assets/d2a50f2c-f35c-4420-b64c-f33150806fb7" />
 <img width="1072" height="522" alt="image" src="https://github.com/user-attachments/assets/c9614833-2b3d-40eb-b67f-64fbea431bac" />
+<img width="1067" height="376" alt="image" src="https://github.com/user-attachments/assets/2f2a79a8-037e-4fc1-b01c-a2d67f9b52fe" />
+<img width="1107" height="241" alt="image" src="https://github.com/user-attachments/assets/3c216cb8-70ce-477f-b767-e9dc2344db93" />
 
 
 ---
