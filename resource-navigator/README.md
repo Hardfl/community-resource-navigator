@@ -2,7 +2,7 @@
 
 A Claude-powered tool that helps nonprofit caseworkers search, summarize, and recommend community resources for clients in need. Built for organizations working in housing, food security, environmental services, humanitarian aid, and public health located in central Jersey (open to expand the reach of this). 
 
-*Resource data sourced from 211.org, findhelp.org, and direct organization websites for Middlesex County, NJ. In production, this would route through a backend to protect the API key...
+*Resource data sourced from 211.org, findhelp.org, and direct organization websites for Middlesex County, NJ. In production, this would route through a backend to protect the API key and another thing to note is that search_logs.csv contains synthetic search data generated to demonstrate gap analysis functionality. In a real deployment, logs would be written by the application and would not contain any personally identifying information.
 
 ---
 
