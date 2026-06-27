@@ -569,60 +569,95 @@
 <script>
 const RESOURCES = [
   {
-    id: 1, org: "GreenRoots Alliance", category: "environment",
-    service: "Urban farming training, composting education, and green job placement for community members.",
-    eligibility: "18+, county residents", address: "440 Elm Street", phone: "555-0141",
-    hours: "Mon–Fri 9am–5pm", capacity: "Open enrollment",
-    tags: ["environment", "jobs", "training"]
+    id: 1, org: "South Brunswick Township Food Pantry", category: "food",
+    service: "Grocery-style food pantry for South Brunswick residents. Registration required — call or email to sign up. Income and residency verification needed at intake.",
+    eligibility: "South Brunswick residents only", address: "540 Ridge Road, Monmouth Junction, NJ 08852", phone: "732-329-4000",
+    hours: "Mon–Fri 8:30am–4:30pm", capacity: "Open",
+    tags: ["food", "pantry", "south brunswick", "grocery"]
   },
   {
-    id: 2, org: "Bridge House Shelter", category: "housing",
-    service: "Emergency overnight shelter and transitional housing with case management for women and families.",
-    eligibility: "Women & families only", address: "82 Pine Avenue", phone: "555-0188",
-    hours: "24/7", capacity: "14 beds (call ahead)",
-    tags: ["housing", "shelter", "emergency"]
+    id: 2, org: "Islamic Society of Central Jersey Food Pantry", category: "food",
+    service: "Food pantry open on alternating Saturdays. Boxes include pasta, rice, canned goods, cooking oil, bread, frozen chicken, and toiletries. Call or email ahead to confirm open dates.",
+    eligibility: "Open to anyone in need", address: "4145 US Route 1, South Brunswick, NJ 08852", phone: "732-329-6995",
+    hours: "Alternating Saturdays 12pm–2pm", capacity: "Open",
+    tags: ["food", "pantry", "saturday", "south brunswick"]
   },
   {
-    id: 3, org: "Harvest Table", category: "food",
-    service: "Weekly food pantry (Thursdays) and hot meals served Monday through Friday for all community members.",
-    eligibility: "No restrictions", address: "10 Church Lane", phone: "555-0109",
-    hours: "Mon–Fri 11am–1pm, Thu pantry 4–7pm", capacity: "No limit",
-    tags: ["food", "meals", "pantry"]
+    id: 3, org: "Ozanam Inn Men's Shelter", category: "housing",
+    service: "Emergency and temporary lodging, meals, housing and employment assistance, case management and referrals for homeless men in Middlesex County. Placement only through Coordinated Entry.",
+    eligibility: "Homeless men in Middlesex County — must go through Coordinated Entry process", address: "120 Albany Street, New Brunswick, NJ 08901", phone: "732-249-7599",
+    hours: "24/7", capacity: "Limited — call for availability",
+    tags: ["housing", "shelter", "emergency", "men", "homeless"]
   },
   {
-    id: 4, org: "Community Health Van", category: "health",
-    service: "Mobile medical clinic offering primary care, dental, vision, and vaccine services for uninsured residents.",
-    eligibility: "Uninsured or low income", address: "Rotating — call for schedule", phone: "555-0167",
-    hours: "Tue & Thu 8am–4pm", capacity: "30 patients/day",
-    tags: ["health", "medical", "dental"]
+    id: 4, org: "Ozanam Family Shelter", category: "housing",
+    service: "Emergency and temporary lodging, meals, housing and employment assistance, children's educational placement, crisis counseling, and case management for women and families.",
+    eligibility: "Women and families who are homeless in Middlesex County", address: "905 Amboy Avenue, Edison, NJ 08837", phone: "732-738-1320",
+    hours: "24/7", capacity: "16 single women and 26 families",
+    tags: ["housing", "shelter", "emergency", "women", "families", "homeless"]
   },
   {
-    id: 5, org: "Refugee Welcome Center", category: "humanitarian",
-    service: "Full resettlement support including ESL classes, job placement assistance, and immigration legal aid.",
-    eligibility: "Refugees & asylees", address: "300 Harbor Blvd", phone: "555-0122",
-    hours: "Mon–Sat 8am–6pm", capacity: "Open",
-    tags: ["humanitarian", "immigration", "legal", "jobs"]
+    id: 5, org: "Coming Home of Middlesex County", category: "housing",
+    service: "Homelessness prevention and permanent housing support. Case managers help clients move into stable housing. Administers the Coordinated Entry process for shelter and permanent housing across Middlesex County.",
+    eligibility: "Homeless or at-risk individuals and families in Middlesex County", address: "100 Bayard Street, New Brunswick, NJ 08901", phone: "732-246-0500",
+    hours: "Mon–Fri 9am–5pm", capacity: "Open — case by case",
+    tags: ["housing", "homeless", "prevention", "case management", "coordinated entry"]
   },
   {
-    id: 6, org: "Clean Air Coalition", category: "environment",
-    service: "Community air quality monitoring, pollution advocacy, and environmental health education programs.",
-    eligibility: "Open to all", address: "55 Greenway Dr", phone: "555-0133",
-    hours: "Mon–Fri 10am–4pm", capacity: "Open",
-    tags: ["environment", "health", "advocacy"]
+    id: 6, org: "Middlesex County Board of Social Services — Emergency Assistance", category: "housing",
+    service: "Rental and mortgage assistance, emergency shelter support for eligible clients. Helps with overdue rent, utility shutoffs, and emergency needs for qualifying households.",
+    eligibility: "Must qualify for WFNJ General Assistance, TANF, or SSI", address: "75 Bayard Street, New Brunswick, NJ 08901", phone: "732-745-3434",
+    hours: "Mon–Fri 8am–4pm", capacity: "By eligibility",
+    tags: ["housing", "rental assistance", "utility", "emergency", "eviction"]
   },
   {
-    id: 7, org: "Second Chance Housing", category: "housing",
-    service: "Supportive re-entry housing for people post-incarceration, with ID recovery and peer support groups.",
-    eligibility: "Post-incarceration", address: "200 Oak Street", phone: "555-0155",
-    hours: "Mon–Fri 9am–5pm", capacity: "8 units",
-    tags: ["housing", "reentry", "support"]
+    id: 7, org: "Middlesex County Conservation Corps", category: "environment",
+    service: "Volunteer conservation work including trail maintenance, invasive species removal, habitat restoration, tree planting, and litter cleanup in Middlesex County parks. Over 14,500 lbs of debris collected in 2025.",
+    eligibility: "Open to all — volunteers 16+ preferred for some projects", address: "PO Box 661, New Brunswick, NJ 08903", phone: "732-745-8147",
+    hours: "Saturdays in spring and fall; weekdays in summer", capacity: "1,000+ volunteers per year",
+    tags: ["environment", "volunteer", "conservation", "parks", "cleanup", "trails"]
   },
   {
-    id: 8, org: "Sunrise Food Pantry", category: "food",
-    service: "Drive-through food distribution every Saturday morning. Fresh produce when available.",
-    eligibility: "County residents", address: "12 Sunrise Ave", phone: "555-0177",
-    hours: "Sat 8am–noon", capacity: "250 families/week",
-    tags: ["food", "pantry"]
+    id: 8, org: "Edison Wetlands Association", category: "environment",
+    service: "Wetland and open space preservation, community gardens (donating produce to those in need), textile recycling via Repurpose NJ, and nature-based volunteer and education programs in Central NJ.",
+    eligibility: "Open to all", address: "1 Ethel Road Suite 107, Edison, NJ 08817", phone: "732-906-9JOIN",
+    hours: "Mon–Fri 9am–5pm", capacity: "Open",
+    tags: ["environment", "volunteer", "wetlands", "conservation", "garden", "recycling"]
+  },
+  {
+    id: 9, org: "The Watershed Institute", category: "environment",
+    service: "Water quality monitoring through citizen science (StreamWatch), environmental education, and land preservation protecting Central NJ waterways. Volunteers take monthly water quality measurements.",
+    eligibility: "Open to all — StreamWatch requires a 1-year commitment", address: "31 Titus Mill Road, Pennington, NJ 08534", phone: "609-737-3735",
+    hours: "Mon–Fri 9am–5pm", capacity: "Open",
+    tags: ["environment", "water", "volunteer", "science", "conservation"]
+  },
+  {
+    id: 10, org: "Interfaith-RISE", category: "humanitarian",
+    service: "Refugee and immigrant resettlement services including affordable housing, ESL classes, employment services, cultural orientation, and access to healthcare and mental health services. By appointment only.",
+    eligibility: "Refugees, asylees, Cuban/Haitian entrants, and Special Immigrant Visa holders in US less than 5 years", address: "Central and Southern NJ — call for location", phone: "732-357-0590",
+    hours: "By appointment — call to schedule", capacity: "Open",
+    tags: ["humanitarian", "refugee", "immigrant", "esl", "housing", "employment", "legal"]
+  },
+  {
+    id: 11, org: "Catholic Charities Diocese of Metuchen — Immigration Legal Services", category: "humanitarian",
+    service: "DOJ-accredited nonprofit immigration legal services including citizenship, permanent residence, family petitions, DACA, TPS, U-Visas, VAWA petitions, and general consultations. Offices in Perth Amboy and New Brunswick.",
+    eligibility: "Immigrants and families — no income restriction for consultations", address: "319 Maple Street, Perth Amboy, NJ 08861", phone: "732-324-8200",
+    hours: "Mon–Fri 9am–5pm", capacity: "By appointment",
+    tags: ["humanitarian", "immigration", "legal", "daca", "citizenship", "refugee"]
+  },
+  {
+    id: 12, org: "PRAB — Boaz Immigration Services", category: "humanitarian",
+    service: "Immigration legal services and social services for immigrants in Central NJ. Case management and community navigation. One of two DOJ-recognized nonprofit legal providers serving the New Brunswick area.",
+    eligibility: "Immigrants in Middlesex County", address: "255 Livingston Avenue, New Brunswick, NJ 08901", phone: "732-832-7535",
+    hours: "Mon–Fri 9am–5pm (call ext. 142)", capacity: "Open",
+    tags: ["humanitarian", "immigration", "legal", "social services"]
+  },
+  {
+    id: 13, org: "Jewish Family Services of Middlesex County", category: "health",
+    service: "Mental health counseling, psychotherapy, immigration and citizenship services, and social support for individuals and families throughout Middlesex County. Sliding scale fees available. Accepts Medicaid and Medicare.",
+    eligibility: "Middlesex County and surrounding area residents", address: "219C Blackhorse Lane, North Brunswick, NJ 08902", phone: "732-777-1940",
+    hours: "Mon–Fri 9am–5pm", capacity: "Open",
+    tags: ["health", "mental health", "counseling", "immigration", "sliding scale"]
   }
 ];
 
