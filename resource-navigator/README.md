@@ -5,6 +5,7 @@ A Claude-powered tool that helps nonprofit caseworkers search, summarize, and re
 *Resource data sourced from 211.org, findhelp.org, and direct organization websites for Middlesex County, NJ.
 
 *In production, this would route through a backend to protect the API key...
+
 ---
 
 ## What it does
