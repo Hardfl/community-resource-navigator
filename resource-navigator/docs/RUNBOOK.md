@@ -103,10 +103,12 @@ Bring these to your next team meeting. Each line represents real clients who did
 ## What the dashboards show
 
 
-<img width="1482" height="695" alt="image" src="https://github.com/user-attachments/assets/2deea44b-314c-42d3-9f2d-e8c99a4149de" />
+<img width="1308" height="687" alt="image" src="https://github.com/user-attachments/assets/86d5d6c8-e17d-42bf-a890-913b069dae6a" />
 
 
-<img width="1136" height="563" alt="image" src="https://github.com/user-attachments/assets/e1da4f9e-af2c-429a-8ca8-3216519fe14b" />
+
+<img width="1072" height="522" alt="image" src="https://github.com/user-attachments/assets/39e8449b-55fb-4c29-bc93-6e040cc4da85" />
+
 
 
 **Impact dashboard tab:**
@@ -115,7 +117,11 @@ Bring these to your next team meeting. Each line represents real clients who did
 - Most common client needs
 
 
-<img width="1137" height="625" alt="image" src="https://github.com/user-attachments/assets/20d4ca9f-e539-411e-a275-99e46a77aae3" />
+<img width="1067" height="376" alt="image" src="https://github.com/user-attachments/assets/3147fb20-530d-4d69-8978-1c9746f017ca" />
+
+
+<img width="1043" height="303" alt="image" src="https://github.com/user-attachments/assets/efdc5006-e1f6-4af4-84fa-1aecf4c1e519" />
+
 
 
 **Data & gaps tab:**
